@@ -1,5 +1,5 @@
 from pathlib import Path
-from stats import get_book_word_count
+from stats import get_book_word_count, book_character_count, book_sorted_character_list
 
 
 def get_book_text(relative_book_file_path: str) -> str:
@@ -29,13 +29,25 @@ def get_book_text(relative_book_file_path: str) -> str:
 
 
 def main() -> None:
-    # Print all of the book contents
-    # book_contents = get_book_text("books/frankenstein.txt")
-    # print(book_contents)
-
     # Print a list of the main text split into words
     book_word_count = get_book_word_count("books/frankenstein.txt")
-    print(f"{book_word_count} words found in the document")
+    book_character_dictionary = book_character_count("books/frankenstein.txt")
+    book_sorted_character_count_list = book_sorted_character_list(
+        book_character_dictionary
+    )
+
+    print(
+        """============ BOOKBOT ============"""
+        + """\nAnalyzing book found at books/frankenstein.txt..."""
+        + """\n----------- Word Count ----------"""
+        + f"""\nFound {book_word_count} total words"""
+        + """\n----------- Character Count ----------"""
+    )
+    for i in range(len(book_sorted_character_count_list)):
+        print(
+            f"{book_sorted_character_count_list[i]['char']}: {book_sorted_character_count_list[i]['num']}"
+        )
+    print("============= END ===============")
 
 
 if __name__ == "__main__":
